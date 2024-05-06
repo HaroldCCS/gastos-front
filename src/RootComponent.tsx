@@ -1,17 +1,31 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import HomePage from './pages/HomePage'
-import NotFoundPage from './pages/NotFoundPage'
+
+//PAGES
+import HomePage from './pages/home/home.page'
+import NotFoundPage from './pages/not_found/not_found.page'
+import PersonalPage from './pages/personal/personal.page'
+
 import { ROUTES } from './resources/routes-constants'
-import './styles/main.sass'
-import LandingStaff from './landing/staff/LandingStaff'
+
+//Layouts
+import StaffLayout from './layouts/staff/staff.layout'
+
+import Home from './components/home/view/home.view.component'
+
+import './styles/variables.scss'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const RootComponent: React.FC = () => {
     return (
         <Router>
             <Routes>
-                <Route path="*" element={<LandingStaff><NotFoundPage /></LandingStaff>} />
-                <Route path={ROUTES.HOMEPAGE_ROUTE} element={<LandingStaff><HomePage /></LandingStaff>} />
+                <Route path="*" element={<StaffLayout><NotFoundPage /></StaffLayout>} />
+
+                <Route path={ROUTES.HOMEPAGE_ROUTE} element={<StaffLayout><HomePage /></StaffLayout>} />
+                <Route path={ROUTES.HOMEPAGE_HOME_ROUTE} element={<StaffLayout><Home /></StaffLayout>} />
+
+                <Route path={ROUTES.PERSONALPAGE_ROUTE} element={<StaffLayout><PersonalPage /></StaffLayout>} />
             </Routes>
         </Router>
     )

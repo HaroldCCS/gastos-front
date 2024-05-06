@@ -1,19 +1,13 @@
 
 import React, { memo } from 'react'
 import { Link } from 'react-router-dom';
-import style from './header.module.scss'
+import style from './index.module.scss'
 
-function Header() {
-  console.log('header', Date.now())
+function HeaderComponent() {
 
   return (
-    <div className={style.header}>
-      <Link to={'/'}> home</Link>
-      <br />
-      <br />
-      <Link to={'/404'}> 404</Link>
-    </div>
+    <div className={style.header}></div>
   );
 }
 
-export default memo(Header);
+export default memo(HeaderComponent);

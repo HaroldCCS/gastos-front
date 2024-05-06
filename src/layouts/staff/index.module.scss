@@ -1,0 +1,13 @@
+
+.main {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    background-color:var(--background);
+}
+@media (max-width: 768px) { //TODO ARREGLAR VARIABLE 
+    .main{
+        flex-direction: column-reverse;
+        justify-content: space-between;
+    }
+}

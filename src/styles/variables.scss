@@ -1,0 +1,28 @@
+html {
+  --primary: #007bff;
+  --secondary: #1280B0;
+  --gray-light: #ced4da;
+  --gray-medium: #495057;
+  --gray-dark: #343a40;
+  --background: #f8f9fa;
+  --text: #000000;
+  --text2: #8F989D;
+
+  --font-title: 'Barlow', sans-serif;
+  --font-text: 'Nunito', sans-serif;
+  --font-size: 16px;
+
+  --screen-sm-min: 576px;
+  --screen-md-min: 768px;
+  --screen-lg-min: 992px;
+  --screen-xl-min: 1200px;
+
+  overflow-y: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
