@@ -5,9 +5,19 @@
     width: 100%;
     background-color:var(--background);
 }
+
+.main-body {
+    padding: 2rem;
+    width: 100%;
+}
+
 @media (max-width: 768px) { //TODO ARREGLAR VARIABLE 
     .main{
         flex-direction: column-reverse;
         justify-content: space-between;
+    }
+
+    .main-body {
+        padding: 1rem;
     }
 }

@@ -5,15 +5,19 @@ import Sidebar from '../../components/sidebar/sidebar.component';
 import styles from './index.module.scss'
 
 function StaffLayout(props: { children: React.ReactNode }) {
-  return ( 
+  return (
     <>
-      <header> 
+      <header>
         <Header />
       </header>
+
       <main className={styles.main}>
-        <Sidebar/>
-        {props.children}
+        <Sidebar />
+        <div className={styles['main-body']}>
+          {props.children}
+        </div>
       </main>
+
       <footer>
       </footer>
     </>

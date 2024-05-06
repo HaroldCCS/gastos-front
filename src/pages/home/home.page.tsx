@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ListHomes from '../../components/home/list_homes/home.list.component'
+import ListHomes from '../../modules/home/list_homes/home.list.component'
 
 import styles from './index.module.scss';
 

@@ -11,7 +11,7 @@ import { ROUTES } from './resources/routes-constants'
 //Layouts
 import StaffLayout from './layouts/staff/staff.layout'
 
-import Home from './components/home/view/home.view.component'
+import Home from './modules/home/view/home.view.component'
 
 import './styles/variables.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
