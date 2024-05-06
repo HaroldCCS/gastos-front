@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, redirect, Navigate } from 'react-router-dom'
 
 //PAGES
 import HomePage from './pages/home/home.page'
@@ -21,6 +21,7 @@ const RootComponent: React.FC = () => {
         <Router>
             <Routes>
                 <Route path="*" element={<StaffLayout><NotFoundPage /></StaffLayout>} />
+                <Route path="/" element={<Navigate to={ROUTES.HOMEPAGE_ROUTE} replace />} />
 
                 <Route path={ROUTES.HOMEPAGE_ROUTE} element={<StaffLayout><HomePage /></StaffLayout>} />
                 <Route path={ROUTES.HOMEPAGE_HOME_ROUTE} element={<StaffLayout><Home /></StaffLayout>} />
