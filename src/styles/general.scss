@@ -1,0 +1,65 @@
+html {
+  overflow-y: hidden;
+  height: 100%;
+  height: -webkit-fill-available;
+}
+
+#root {
+  height: 100%;
+  height: -webkit-fill-available;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  height: -webkit-fill-available;
+  background-color: var(--background2);
+}
+
+svg {
+  color: var(--primary);
+  width: 2rem;
+  height: 2rem;
+  margin: 5px;
+}
+
+
+svg:focus {
+  animation: rebote 500ms ease;
+}
+
+svg:active {
+  animation: rebote 100ms ease;
+}
+
+@keyframes rebote {
+  0% {
+      transform: translateY(0);
+  }
+  25% {
+      transform: translateY(-5px);
+  }
+  50% {
+      transform: translateY(0);
+  }
+  75% {
+      transform: translateY(-5px);
+  }
+  100% {
+      transform: translateY(0);
+  }
+}
+
+h1 {
+  font-weight: 600;
+  color: var(--text);
+}
+
+p {
+  color: var(--text);
+  margin: 0;
+}
+

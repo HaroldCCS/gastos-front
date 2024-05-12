@@ -5,10 +5,9 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
-import { TbHomePlus } from "react-icons/tb";
-import { IoMdHome } from "react-icons/io";
+import { TbHomeMove } from "react-icons/tb";
 
-function HomeCreateComponent() {
+function HomeGetIntoComponent() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -17,7 +16,7 @@ function HomeCreateComponent() {
   return (
     <>
       <Button variant="outline-primary" onClick={handleShow}>
-        Crear un hogar <TbHomePlus />
+        Ingresar a un hogar <TbHomeMove />
       </Button>
 
       <Modal 
@@ -30,18 +29,17 @@ function HomeCreateComponent() {
       >
 
         <Modal.Header closeButton>
-          <Modal.Title>Gestina las finanzas de un nuevo hogar</Modal.Title>
+          <Modal.Title>Ingresa a un hogar</Modal.Title>
         </Modal.Header>
 
         <Modal.Body className="pt-4 pb-4">
-
-          <p className="mb-2">Nombre del hogar:</p>
+          <p className="mb-2">Ingresa el codigo del hogar</p>
           <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1"><IoMdHome /></InputGroup.Text>
+            <InputGroup.Text id="basic-addon1">#</InputGroup.Text>
             <Form.Control
-              placeholder="Nombre"
-              aria-label="name"
-              aria-describedby="nombre del hogar"
+              placeholder="codigo del hogar"
+              aria-label="code"
+              aria-describedby="basic-addon1"
             />
           </InputGroup>
         </Modal.Body>
@@ -51,7 +49,7 @@ function HomeCreateComponent() {
             cancelar
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Crear hogar
+            Solicitar ingreso
           </Button>
         </Modal.Footer>
 
@@ -60,4 +58,4 @@ function HomeCreateComponent() {
   );
 }
 
-export default HomeCreateComponent;
+export default HomeGetIntoComponent;

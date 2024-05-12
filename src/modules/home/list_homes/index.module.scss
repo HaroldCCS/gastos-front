@@ -10,4 +10,10 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  background-color: var(--background) !important;
+}
+
+.card {
+  min-width: 15rem;
+  flex-grow: 1;
 }

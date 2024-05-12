@@ -5,17 +5,23 @@ import { ROUTES } from "../../../resources/routes-constants";
 
 import styles from './index.module.scss';
 import HeaderTurnBackComponent from "../../../components/header_turn_back/header_turn_back.component";
+import { Fade } from 'react-awesome-reveal';
 
 function HomeViewComponent() {
   const { home_id } = useParams();
 
   return (
     <div className={styles.main}>
-      <HeaderTurnBackComponent route={ROUTES.HOMEPAGE_ROUTE} title={`home especifico ${home_id}`} />
+      <Fade direction="down">
+        <HeaderTurnBackComponent route={ROUTES.HOMEPAGE_ROUTE} title={`home especifico ${home_id}`} />
+      </Fade>
 
-      <p>Personas</p>
-      <p>historial apostes y gastos</p>
-      <p>gastos</p>
+      
+      <Fade cascade>
+        <p>Personas</p>
+        <p>historial apostes y gastos</p>
+        <p>gastos</p>
+      </Fade>
     </div>
   );
 }

@@ -13,9 +13,6 @@ import StaffLayout from './layouts/staff/staff.layout'
 
 import Home from './modules/home/view/home.view.component'
 
-import './styles/variables.scss'
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 const RootComponent: React.FC = () => {
     return (
         <Router>
