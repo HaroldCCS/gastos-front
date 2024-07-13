@@ -1,23 +1,19 @@
 import { ThunkDispatch, UnknownAction, combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage
-import data from './data'
-import tokenReducer from './token'
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import contadorReducer from './contador'
+import homeReducer from './home/home.reducer'
 
 const rootReducer = combineReducers({
-    data,
-    token: tokenReducer,
-    contador: contadorReducer
+    home: homeReducer
 })
 
 const persistedReducer = persistReducer(
     {
         key: 'root',
         storage,
-        whitelist: ['data', 'token', 'contador']
+        whitelist: ['home']
     },
     rootReducer
 )

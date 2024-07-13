@@ -1,8 +1,9 @@
 import React from 'react'
-import HeaderTurnBackComponent from '../../components/header_turn_back/header_turn_back.component'
+import HeaderTurnBackComponent from "../../components/header_turn_back/header_turn_back.component";
+
 import { Fade } from 'react-awesome-reveal';
 
-const PersonalPage: React.FC = () => {
+const PersonalFinancePage: React.FC = () => {
     return (
         <div>
             <Fade direction='down'>
@@ -12,4 +13,4 @@ const PersonalPage: React.FC = () => {
     )
 }
 
-export default PersonalPage
+export default PersonalFinancePage

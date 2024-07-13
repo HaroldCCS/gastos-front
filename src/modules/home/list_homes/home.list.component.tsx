@@ -1,28 +1,27 @@
 import React, { useEffect } from 'react'
+
 import { Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { BsDoorOpenFill } from "react-icons/bs";
-import styles from './index.module.scss'
-import { generatePath, Link } from 'react-router-dom';
-import { ROUTES } from '../../../resources/routes-constants';
 import { Fade } from 'react-awesome-reveal';
+import { Link } from 'react-router-dom';
+
+
+import styles from './index.module.scss'
+import { ROUTES } from '../../../resources/routes-constants';
+import { useAppDispatch, useAppSelector } from '../../../store';
 
 interface Home {
   _id: string
   name: string
 }
 
+
+
 function HomeListComponent() {
-  const [homes, setHomes] = React.useState<Home[]>([]);
+  const dispatch = useAppDispatch();
+  const homes = useAppSelector(state => state.home.homes);
 
-  useEffect(() => {
-    setHomes([
-      { _id: '1', name: 'Casa Familiar' },
-      { _id: '2', name: 'Apartamento Soacha' },
-      { _id: '3', name: 'Casa Ciudad Bolivar' },
-    ])
-  }, []);
-
-
+  console.log('homes:', homes);
   return (
     <div className={styles.main}>
       <Fade cascade className={styles.card}>

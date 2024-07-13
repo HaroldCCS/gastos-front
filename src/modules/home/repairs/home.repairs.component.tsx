@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+
 import { Table } from "react-bootstrap";
 
 import MoneyFormatter from "../../../utility/MoneyFormatter";
@@ -14,7 +15,7 @@ interface IRepair {
 }
 
 
-function HomePeopleComponent() {
+function HomeRepairsComponent() {
   const [repairs, setRepairs] = React.useState<IRepair[]>([]);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ function HomePeopleComponent() {
 
   return (
     <div className={styles.main + ' pt-3 pb-3'} >
-      <h3 className="d-flex justify-content-center" >Personas</h3>
+      <h3 className="d-flex justify-content-center" >Reparaciones</h3>
       <FileRepair data={repairs} />
     </div>
   );
@@ -53,4 +54,4 @@ function FileRepair({ data }: { readonly data: IRepair[] }) {
 }
 
 
-export default HomePeopleComponent;
+export default HomeRepairsComponent;

@@ -1,8 +1,10 @@
 import React from "react"
 
-import styles from './index.module.scss';
-import TurnBackComponent from "../turn_back/turn_back.component";
 import { Fade } from 'react-awesome-reveal';
+
+import TurnBackComponent from "../turn_back/turn_back.component";
+
+import styles from './index.module.scss';
 
 function HeaderTurnBackComponent({ route, title }: { readonly route?: string, readonly title: string }) {
   return (

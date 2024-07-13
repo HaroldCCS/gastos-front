@@ -1,12 +1,12 @@
 import React from 'react'
+import { Fade } from 'react-awesome-reveal'
 
 import HeaderTurnBackComponent from '../../components/header_turn_back/header_turn_back.component';
 import ListHomes from '../../modules/home/list_homes/home.list.component'
 
 import styles from './index.module.scss';
 
-import { Fade } from 'react-awesome-reveal'
-import HomeCreateComponent from '../../modules/home/create/home.create.component';
+import HomeCreateComponent from '../../modules//home/create/home.create.component';
 import HomeGetIntoComponent from '../../modules/home/getInto/home.get.into.component';
 const HomePage: React.FC = () => {
     return (

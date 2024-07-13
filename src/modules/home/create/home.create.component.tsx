@@ -4,13 +4,21 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-
 import { TbHomePlus } from "react-icons/tb";
 import { IoMdHome } from "react-icons/io";
 
-function HomeCreateComponent() {
-  const [show, setShow] = useState(false);
+import { useAppDispatch } from "../../../store";
+import ACTIONS from "../../../store/home/home.action";
 
+function HomeCreateComponent() {
+  const dispatch = useAppDispatch();
+  const [show, setShow] = useState(false);
+  const [name, setName] = useState('');
+
+  const handleCreate = () => {
+    dispatch(ACTIONS.add({ _id: Math.random().toString(), name }));
+    setShow(false);
+  }
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -42,6 +50,7 @@ function HomeCreateComponent() {
               placeholder="Nombre"
               aria-label="name"
               aria-describedby="nombre del hogar"
+              onChange={e => setName(e.target.value)}
             />
           </InputGroup>
         </Modal.Body>
@@ -50,7 +59,7 @@ function HomeCreateComponent() {
           <Button variant="secondary" onClick={handleClose}>
             cancelar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleCreate}>
             Crear hogar
           </Button>
         </Modal.Footer>
