@@ -6,7 +6,7 @@ import { GiPayMoney } from "react-icons/gi";
 import { Fade } from 'react-awesome-reveal';
 import { useAppDispatch, useAppSelector } from 'store';
 import { Interface } from 'store/personalFinance/myMoneyHistory';
-import { Form, InputGroup, Table } from 'react-bootstrap';
+import { Form, InputGroup, OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
 import MoneyFormatter from 'utility/MoneyFormatter';
 import ACTIONS from 'store/personalFinance/myMoneyHistory/myMoneyHistory.action';
 import MyMoneyHistoryCreateComponent from 'modules/personal/myMoneyHistory/create/myMoneyHistory.create.component';
@@ -76,10 +76,21 @@ function FileRepair({ data }: { readonly data: Interface[] }) {
             </thead>
             <tbody>
                 {data?.map(r => (<tr key={r?._id}>
-                    <td>{r.income ? <GiReceiveMoney color='green' /> : <GiPayMoney color='red' />}</td>
+                    <td>
+                        <OverlayTrigger
+                            placement={'top'}
+                            overlay={
+                                <Tooltip id={`tooltip-right`}>
+                                    {r.income ? 'Ingreso' : 'Egreso'}
+                                </Tooltip>
+                            }
+                        >
+                            <div>{r.income ? <GiReceiveMoney color='green' /> : <GiPayMoney color='red' />}</div>
+                        </OverlayTrigger>
+                    </td>
                     <td>{r.name}</td>
                     <td>{MoneyFormatter(r.amount)}</td>
-                    <td><center><Form.Check type={'checkbox'} onChange={(_e) => dispatch(ACTIONS.changeStatus({_id: r._id, status: _e?.target?.checked ? 'done' : 'pending'}))} checked={r.status === 'done'} /></center></td>
+                    <td><center><Form.Check type={'checkbox'} onChange={(_e) => dispatch(ACTIONS.changeStatus({ _id: r._id, status: _e?.target?.checked ? 'done' : 'pending' }))} checked={r.status === 'done'} /></center></td>
                 </tr>))}
             </tbody>
         </Table>
