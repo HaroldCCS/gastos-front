@@ -8,7 +8,6 @@ import Tooltip from 'react-bootstrap/Tooltip';
 
 //ICONS
 import { IoMdHome } from "react-icons/io";
-import { FaUser } from "react-icons/fa";
 import { GiPayMoney } from "react-icons/gi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { TbZoomMoney } from "react-icons/tb";

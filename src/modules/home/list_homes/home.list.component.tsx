@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { BsDoorOpenFill } from "react-icons/bs";
@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './index.module.scss'
 import { ROUTES } from '../../../resources/routes-constants';
-import { useAppDispatch, useAppSelector } from '../../../store';
+import { useAppSelector } from '../../../store';
 
 interface Home {
   _id: string
@@ -18,10 +18,8 @@ interface Home {
 
 
 function HomeListComponent() {
-  const dispatch = useAppDispatch();
   const homes = useAppSelector(state => state.home.homes);
 
-  console.log('homes:', homes);
   return (
     <div className={styles.main}>
       <Fade cascade className={styles.card}>

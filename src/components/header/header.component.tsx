@@ -1,6 +1,5 @@
 
 import React, { memo } from 'react'
-import { Link } from 'react-router-dom';
 import style from './index.module.scss'
 
 function HeaderComponent() {
