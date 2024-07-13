@@ -27,31 +27,7 @@ svg {
 }
 
 
-svg:focus {
-  animation: rebote 500ms ease;
-}
 
-svg:active {
-  animation: rebote 100ms ease;
-}
-
-@keyframes rebote {
-  0% {
-      transform: translateY(0);
-  }
-  25% {
-      transform: translateY(-5px);
-  }
-  50% {
-      transform: translateY(0);
-  }
-  75% {
-      transform: translateY(-5px);
-  }
-  100% {
-      transform: translateY(0);
-  }
-}
 
 h1 {
   font-weight: 600;

@@ -1,13 +1,13 @@
 import React from 'react'
 import { Fade } from 'react-awesome-reveal'
 
-import HeaderTurnBackComponent from '../../components/header_turn_back/header_turn_back.component';
-import ListHomes from '../../modules/home/list_homes/home.list.component'
+import HeaderTurnBackComponent from 'components/header_turn_back/header_turn_back.component';
+import ListHomes from 'modules/home/list_homes/home.list.component'
 
 import styles from './index.module.scss';
 
-import HomeCreateComponent from '../../modules//home/create/home.create.component';
-import HomeGetIntoComponent from '../../modules/home/getInto/home.get.into.component';
+import HomeCreateComponent from 'modules//home/create/home.create.component';
+import HomeGetIntoComponent from 'modules/home/getInto/home.get.into.component';
 const HomePage: React.FC = () => {
     return (
         <div className={styles.main}>
@@ -19,10 +19,10 @@ const HomePage: React.FC = () => {
 
             {/* start Acciones crear ingresar */}
             <div className='d-flex justify-content-between mb-5'>
-                <Fade direction='left'>
+                <Fade>
                     <HomeGetIntoComponent />
                 </Fade>
-                <Fade direction='right'>
+                <Fade>
                     <HomeCreateComponent />
                 </Fade>
             </div>

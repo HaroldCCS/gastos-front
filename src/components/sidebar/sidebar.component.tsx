@@ -31,16 +31,18 @@ function SidebarComponent() {
 
 function RedirectComponent({ place_redirect, page_route, children }: { place_redirect: string, page_route: string, children: React.ReactNode }) {
   return (
-    <OverlayTrigger
-      placement={'auto'}
-      overlay={
-        <Tooltip id={`tooltip-right`}>
-          {place_redirect}
-        </Tooltip>
-      }
-    >
-      <Link to={page_route} className={styles.link} > {children}</Link>
-    </OverlayTrigger>
+    <Link to={page_route} className={styles.link} >
+      <OverlayTrigger
+        placement={'auto'}
+        overlay={
+          <Tooltip id={`tooltip-right`}>
+            {place_redirect}
+          </Tooltip>
+        }
+      >
+        <div>{children}</div>
+      </OverlayTrigger>
+    </Link>
   )
 }
 

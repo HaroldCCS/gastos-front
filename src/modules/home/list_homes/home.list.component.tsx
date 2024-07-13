@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 
 
 import styles from './index.module.scss'
-import { ROUTES } from '../../../resources/routes-constants';
-import { useAppSelector } from '../../../store';
+import { ROUTES } from 'resources/routes-constants';
+import { useAppSelector } from 'store';
 
 interface Home {
   _id: string
@@ -22,7 +22,7 @@ function HomeListComponent() {
 
   return (
     <div className={styles.main}>
-      <Fade cascade className={styles.card}>
+      <Fade cascade className={styles.card} duration={300}>
         {homes.map((home: Home) => <CardComponent key={home._id} home={home} />)}
       </Fade>
     </div>
