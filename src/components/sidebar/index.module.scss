@@ -12,6 +12,13 @@
   color: var(--primary);
 }
 
+.link.active {
+  svg {
+    color: red;
+  }
+  color: red;
+}
+
 @media (max-width: 768px) { //TODO ARREGLAR VARIABLE 
   .sidebar{
       flex-direction: row;

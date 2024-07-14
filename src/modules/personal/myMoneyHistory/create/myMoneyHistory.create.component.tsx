@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { TbHomePlus } from "react-icons/tb";
 import { IoMdHome } from "react-icons/io";
+import { IoCalendarNumberSharp } from "react-icons/io5";
 
 import { useAppDispatch } from "store";
 import ACTIONS from "store/personalFinance/myMoneyHistory/myMoneyHistory.action";
@@ -17,9 +18,10 @@ function MyMoneyHistoryCreateComponent() {
   const [amount, setAmount] = useState(0);
   const [income, setIncome] = useState(false);
   const [status, setStatus] = useState(false);
+  const [date, setDate] = useState<Date>(new Date());
 
   const handleCreate = () => {
-    dispatch(ACTIONS.add({ _id: Math.random().toString(), name, status: status ? 'done' : 'pending', date: new Date(), amount, income }));
+    dispatch(ACTIONS.add({ _id: Math.random().toString(), name, status: status ? 'done' : 'pending', date: date, amount, income }));
     setShow(false);
   }
   const handleClose = () => setShow(false);
@@ -78,6 +80,16 @@ function MyMoneyHistoryCreateComponent() {
               placeholder={` ${income ? "¿ya fue recibido?" : "¿ya se pagó?"}`}
               aria-label="Estado"
               aria-describedby="Estado"
+            />
+          </InputGroup>
+          <InputGroup className="mb-3">
+            <InputGroup.Text id="basic-addon1"> <IoCalendarNumberSharp /> </InputGroup.Text>
+            <Form.Control
+              type="date"
+              placeholder="Fecha"
+              aria-label="Fecha"
+              aria-describedby="Fecha"
+              onChange={e => {console.log(e); setDate(new Date(e.target.value))}}
             />
           </InputGroup>
         </Modal.Body>

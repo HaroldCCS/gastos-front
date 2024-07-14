@@ -1,6 +1,6 @@
-import React, { memo } from 'react'
-import { ROUTES } from '../../resources/routes-constants';
-import { Link } from 'react-router-dom';
+import React, { memo } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { ROUTES } from 'resources/routes-constants';
 
 //BOOTSTRAP
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -12,26 +12,30 @@ import { GiPayMoney } from "react-icons/gi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { TbZoomMoney } from "react-icons/tb";
 
-import styles from './index.module.scss'
+import styles from './index.module.scss';
 import { Fade } from 'react-awesome-reveal';
 
 function SidebarComponent() {
-  return (
+  const location = '/' + useLocation()?.pathname?.split('/')[1];
 
+  return (
     <div className={styles.sidebar}>
       <Fade>
-        <RedirectComponent place_redirect="Hogares" page_route={ROUTES.HOMEPAGE_ROUTE} > <IoMdHome /></RedirectComponent>
-        <RedirectComponent place_redirect="Mis finanzas" page_route={ROUTES.PERSONALPAGE_ROUTE} > <TbZoomMoney /> </RedirectComponent>
-        <RedirectComponent place_redirect="Prestamos" page_route={ROUTES.PERSONALPAGE_ROUTE} > <GiReceiveMoney /> </RedirectComponent>
-        <RedirectComponent place_redirect="Deudas" page_route={ROUTES.PERSONALPAGE_ROUTE} > <GiPayMoney /> </RedirectComponent>
+        <RedirectComponent place_redirect="Hogares" page_route={ROUTES.HOMEPAGE_ROUTE} currentPath={location}> <IoMdHome /></RedirectComponent>
+        <RedirectComponent place_redirect="Mis finanzas" page_route={ROUTES.PERSONALPAGE_ROUTE} currentPath={location}> <TbZoomMoney /> </RedirectComponent>
+        <RedirectComponent place_redirect="Prestamos" page_route={ROUTES.PERSONALPAGE_ROUTE} currentPath={location}> <GiReceiveMoney /> </RedirectComponent>
+        <RedirectComponent place_redirect="Deudas" page_route={ROUTES.PERSONALPAGE_ROUTE} currentPath={location}> <GiPayMoney /> </RedirectComponent>
       </Fade>
     </div>
   );
 }
 
-function RedirectComponent({ place_redirect, page_route, children }: { place_redirect: string, page_route: string, children: React.ReactNode }) {
+function RedirectComponent(
+  { place_redirect, page_route, children, currentPath }: { readonly place_redirect: string, readonly page_route: string, readonly children: React.ReactNode, readonly currentPath: string }) {
+  const isActive = currentPath === page_route;
+
   return (
-    <Link to={page_route} className={styles.link} >
+    <Link to={page_route} className={`${styles.link} ${isActive ? styles.active : ''}`}>
       <OverlayTrigger
         placement={'auto'}
         overlay={
@@ -43,7 +47,7 @@ function RedirectComponent({ place_redirect, page_route, children }: { place_red
         <div>{children}</div>
       </OverlayTrigger>
     </Link>
-  )
+  );
 }
 
-export default memo(SidebarComponent)
+export default memo(SidebarComponent);
