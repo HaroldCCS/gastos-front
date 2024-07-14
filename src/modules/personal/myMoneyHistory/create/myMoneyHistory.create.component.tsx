@@ -99,7 +99,7 @@ function MyMoneyHistoryCreateComponent() {
             cancelar
           </Button>
           <Button variant="primary" onClick={handleCreate}>
-            Crear hogar
+            Crear {income ? 'ingreso' : 'egreso'}
           </Button>
         </Modal.Footer>
 
