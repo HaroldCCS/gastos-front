@@ -18,6 +18,10 @@ const reducer = createReducer<IReducer>(initialState, (builder) => {
     builder.addCase(ACTIONS.changeStatus, (state, action) => {
         state[name_storage] = state[name_storage].map(h => h._id === action.payload._id ? { ...h, status: action.payload.status } : h)
     })
+
+    builder.addCase(ACTIONS.delete, (state, action) => {
+        state[name_storage] = state[name_storage].filter(h => h._id !== action.payload._id)
+    })
 })
 
 export default reducer
