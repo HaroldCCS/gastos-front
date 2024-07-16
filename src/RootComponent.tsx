@@ -6,10 +6,11 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { ROUTES } from './resources/routes-constants'
 
 //Layouts
+import AnonymousLayout from 'layouts/anonymous/staff.layout'
 import StaffLayout from './layouts/staff/staff.layout'
 
 import Home from './modules/home/view/home.view.component'
-import { HomePage, NotFoundPage, PersonalFinancePage } from './pages'
+import { HomePage, NotFoundPage, PersonalFinancePage, LoginPage } from './pages'
 
 const RootComponent: React.FC = () => {
     return (
@@ -22,6 +23,8 @@ const RootComponent: React.FC = () => {
                 <Route path={ROUTES.HOMEPAGE_HOME_ROUTE} element={<StaffLayout><Home /></StaffLayout>} />
 
                 <Route path={ROUTES.PERSONALPAGE_ROUTE} element={<StaffLayout><PersonalFinancePage /></StaffLayout>} />
+
+                <Route path={ROUTES.LOGIN} element={<AnonymousLayout><LoginPage /></AnonymousLayout>} />
             </Routes>
         </Router>
     )

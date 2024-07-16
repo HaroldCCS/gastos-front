@@ -13,37 +13,43 @@ import ACTIONS from 'store/personalFinance/myMoneyHistory/myMoneyHistory.action'
 import MyMoneyHistoryCreateComponent from 'modules/personal/myMoneyHistory/create/myMoneyHistory.create.component';
 import Swal from 'sweetalert2';
 
+import styles from './index.module.scss';
 
 
 const PersonalFinancePage: React.FC = () => {
 	const storage = useAppSelector(state => state.personal_finances.my_money_history);
 
-	const [orderMyMonth, setOrderMyMonth] = React.useState<Map<number, Map<number, Interface[]>>>(new Map());
+	const [orderMyMonth, setOrderMyMonth] = React.useState<{date: string, data: Interface[]}[]>([]);
 
 	useEffect(() => {
 
-		const data = new Map<number, Map<number, Interface[]>>();
+		const data = new Map<string, Interface[]>();
 
-		for (const money of storage) {
+		const order = storage.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+		for (const money of order) {
 			const date = new Date(money.date);
 
 			const month = date.getMonth() + 1;
 			const year = date.getFullYear();
+			const key = `${year}-${month}`;
 
-			if (!data.has(year)) data.set(year, new Map());
-			const data_year = data.get(year);
-
-			if (data_year && !data_year?.has(month)) data_year.set(month, []);
-
-			const data_month = data_year?.get(month);
-			if (data_month) data_month.push(money);
+			if (!data.has(key)) data.set(key, []);
+			data.get(key)?.push(money);
 		}
 
-		setOrderMyMonth(data);
+		const keys = Array.from(data.keys());
+		const values: {date: string, data: Interface[]}[] = []
+
+		for (const key of keys) {
+			const data_year = data.get(key) || [];
+			values.push({data: data_year, date: key});
+		}
+
+		setOrderMyMonth(values);
 	}, [storage]);
 
 	return (
-		<div>
+		<div className={styles.main}>
 			<Fade direction='down'>
 				<HeaderTurnBackComponent title="Sección finanzas personales" />
 			</Fade>
@@ -51,14 +57,10 @@ const PersonalFinancePage: React.FC = () => {
 			<MyMoneyHistoryCreateComponent />
 
 
-			<div className='d-flex justify-content-center gap-5 mt-5'>
-				{Array.from(orderMyMonth.entries()).map(([key1, value1]) => (
-					<div key={key1} className='gap-5 d-flex justify-content-center'>
-						{Array.from(value1.entries()).map(([key2, value2]) => (
-							<div key={key2} >
-								<FileRepair data={value2} />
-							</div>
-						))}
+			<div className='d-flex justify-content-center gap-5 mt-5 flex-wrap'>
+				{orderMyMonth.map((data) => (
+					<div key={data.date} className='gap-5 d-flex justify-content-center'>
+						<FileRepair data={data.data} />
 					</div>
 				))}
 			</div>
@@ -87,9 +89,9 @@ function FileRepair({ data }: { readonly data: Interface[] }) {
 
 	return (
 
-		<Accordion defaultActiveKey="0" style={{ width: '400px' }} alwaysOpen>
+		<Accordion defaultActiveKey="0" style={{ maxWidth: '400px' }} alwaysOpen>
 			<Accordion.Item eventKey="0">
-				<Accordion.Header>Finanzas {(new Date(data[0]?.date).toLocaleDateString('es-ES', {year: 'numeric', month: 'long'}))}</Accordion.Header>
+				<Accordion.Header>Finanzas {(new Date(data[0]?.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' }))}</Accordion.Header>
 				<Accordion.Body style={{ padding: '0rem' }}>
 
 					<Table striped hover style={{ width: '400px' }}>
@@ -132,7 +134,7 @@ function FileRepair({ data }: { readonly data: Interface[] }) {
 
 				<Accordion.Header>calculos</Accordion.Header>
 				<Accordion.Body style={{ padding: '0rem' }}>
-					<Table hover bordered style={{ width: '400px' }}>
+					<Table hover bordered style={{ maxWidth: '400px' }}>
 						<tbody>
 							<tr>
 								<td rowSpan={2}>Egresos</td>
