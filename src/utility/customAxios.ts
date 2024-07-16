@@ -42,24 +42,24 @@ export const toSnackCase: any = (object: any) => {
     return transformedObject
 }
 
-CustomAxios.interceptors.response.use(
-    (response) => {
-        response.data = toCamelCase(response.data)
-        return response
-    },
-    (error) => {
-        return Promise.reject(error)
-    }
-)
+// CustomAxios.interceptors.response.use(
+//     (response) => {
+//         response.data = toCamelCase(response.data)
+//         return response
+//     },
+//     (error) => {
+//         return Promise.reject(error)
+//     }
+// )
 
-CustomAxios.interceptors.request.use(
-    (config) => {
-        config.data = toSnackCase(config.data)
-        return config
-    },
-    (error) => {
-        return Promise.reject(error)
-    }
-)
+// CustomAxios.interceptors.request.use(
+//     (config) => {
+//         config.data = toSnackCase(config.data)
+//         return config
+//     },
+//     (error) => {
+//         return Promise.reject(error)
+//     }
+// )
 
 export default CustomAxios

@@ -7,17 +7,21 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage
 
 import homeReducer from 'store/home/home.reducer'
 import myMoneyHistoryReducer from 'store/personalFinance/myMoneyHistory/myMoneyHistory.reducer'
+import tokenReducer from './auth/token/token.reducer'
+import userReducer from './auth/user/user.reducer'
 
 const rootReducer = combineReducers({
     home: homeReducer,
-    'personal_finances': myMoneyHistoryReducer
+    'personal_finances': myMoneyHistoryReducer,
+    token: tokenReducer,
+    user: userReducer
 })
 
 const persistedReducer = persistReducer(
     {
         key: 'root',
         storage,
-        whitelist: ['home', 'personal_finances']
+        whitelist: ['home', 'personal_finances', 'token', 'user']
     },
     rootReducer
 )

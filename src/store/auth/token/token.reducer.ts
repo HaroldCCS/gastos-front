@@ -14,6 +14,9 @@ const tokenReducer = createReducer<IReducer>(initialState, (builder) => {
 
     builder.addCase(ACTIONS.drop, (state) => {
         state[name_storage] = ''
+
+        //Se elimina el localStorage luego de cerrar sesión
+        localStorage.clear()
     })
 })
 
