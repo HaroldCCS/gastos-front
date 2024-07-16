@@ -164,6 +164,12 @@ function MoneyComponent({ r, handleDelete }: { readonly r: Interface; readonly h
 		setIsLoading(false);
 	}
 
+	const handleDeleteLocal = async (_id: string) => {
+		setIsLoading(true);
+		await handleDelete(_id);
+		setIsLoading(false);
+	}
+
 	return (
 		<tr>
 			<td>
@@ -183,8 +189,10 @@ function MoneyComponent({ r, handleDelete }: { readonly r: Interface; readonly h
 			<td>
 				<center className='d-flex justify-content-center align-items-center gap-2'>
 					{isLoading && <LoaderV1Component />}
-					{!isLoading && <Form.Check type={'checkbox'} onChange={(_e) => handleChangeStatus(r._id, _e?.target?.checked ? 'done' : 'pending')} checked={r.status === 'done'} />}
-					<FaDeleteLeft color='red' style={{ width: '25px', height: '25px', cursor: 'pointer' }} onClick={() => handleDelete(r._id)} />
+					{!isLoading && <>
+						<Form.Check type={'checkbox'} onChange={(_e) => handleChangeStatus(r._id, _e?.target?.checked ? 'done' : 'pending')} checked={r.status === 'done'} />
+						<FaDeleteLeft color='red' style={{ width: '25px', height: '25px', cursor: 'pointer' }} onClick={() => handleDeleteLocal(r._id)} />
+					</>}
 				</center>
 			</td>
 		</tr>
