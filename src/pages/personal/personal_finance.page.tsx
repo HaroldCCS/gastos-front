@@ -26,7 +26,7 @@ const PersonalFinancePage: React.FC = () => {
 
 		const data = new Map<string, Interface[]>();
 
-		const order = storage.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+		const order = storage;
 		for (const money of order) {
 			const date = new Date(money.date);
 
@@ -93,7 +93,7 @@ function FileRepair({ data }: { readonly data: Interface[] }) {
 
 	return (
 
-		<Accordion defaultActiveKey="0" style={{ maxWidth: '400px' }} alwaysOpen>
+		<Accordion defaultActiveKey="0" style={{ maxWidth: '400px', minWidth: '400px' }} alwaysOpen>
 			<Accordion.Item eventKey="0">
 				<Accordion.Header>Finanzas {(new Date(data[0]?.date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' }))}</Accordion.Header>
 				<Accordion.Body style={{ padding: '0rem' }}>

@@ -5,8 +5,9 @@ const fn_name = 'home'
 
 
 const add = createAction<Interface>(`${fn_name}/add`)
-
+const delete_all = createAction(`${fn_name}/deleteAll`)
 
 export default{
-  add
+  add,
+  delete_all
 }

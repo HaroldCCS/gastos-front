@@ -12,6 +12,10 @@ const homeReducer = createReducer<IReducer>(initialState, (builder) => {
     builder.addCase(ACTIONS.add, (state, action) => {
         state.homes.push(action.payload)
     })
+
+    builder.addCase(ACTIONS.delete_all, (state, action) => {
+        state.homes = []
+    })
 })
 
 export default homeReducer

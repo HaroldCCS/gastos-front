@@ -12,6 +12,10 @@ const userReducer = createReducer<IReducer>(initialState, (builder) => {
     builder.addCase(ACTIONS.set, (state, action) => {
         state.user = action.payload
     })
+
+    builder.addCase(ACTIONS.delete_all, (state, action) => {
+        state[name_storage] = {_id: '', name: '', email: ''}
+    })
 })
 
 export default userReducer

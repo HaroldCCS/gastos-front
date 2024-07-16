@@ -12,10 +12,10 @@ export default class MoneyHistoryService {
   private user_id = '';
   private path = configService.host + "/money-history";
 
-  constructor() {
+  constructor(user?: Interface, token?: string) {
     const data = JSON.parse(localStorage.getItem('persist:root')  || '{}')
-    this.token = JSON.parse(data.token).token;
-    this.user_id = JSON.parse(data.user)?.user?._id;
+    this.token = token || JSON.parse(data.token).token;
+    this.user_id = user?._id || JSON.parse(data.user)?.user?._id;
   }
 
 
@@ -54,8 +54,8 @@ export default class MoneyHistoryService {
 
   async getAllByUser(): Promise<any> {
     try {
-      const response = await CustomAxios({ method: 'GET', url: this.path + "/" + this.user_id, headers: { 'Authorization': `Bearer ${this.token}` } })
-      if (!response?.data?._id) throw response
+      const response = await CustomAxios({ method: 'GET', url: this.path + "/by-user/" + this.user_id, headers: { 'Authorization': `Bearer ${this.token}` } })
+      if (!response?.data) throw response
 
       return response?.data;
     } catch (error) {

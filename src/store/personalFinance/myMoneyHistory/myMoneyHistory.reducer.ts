@@ -10,6 +10,9 @@ interface IReducer { [name_storage]: Interface[] }
 const initialState: IReducer = { [name_storage]: initial_data }
 
 const reducer = createReducer<IReducer>(initialState, (builder) => {
+    builder.addCase(ACTIONS.addMany, (state, action) => {
+        state[name_storage] = action.payload
+    })
 
     builder.addCase(ACTIONS.add, (state, action) => {
         state[name_storage].push(action.payload)
@@ -21,6 +24,10 @@ const reducer = createReducer<IReducer>(initialState, (builder) => {
 
     builder.addCase(ACTIONS.delete, (state, action) => {
         state[name_storage] = state[name_storage].filter(h => h._id !== action.payload._id)
+    })
+
+    builder.addCase(ACTIONS.delete_all, (state, action) => {
+        state[name_storage] = []
     })
 })
 

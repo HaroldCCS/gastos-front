@@ -14,11 +14,14 @@ import { FcGoogle } from 'react-icons/fc'; // Importa el logo de Google
 
 import styles from './index.module.scss';
 import LoaderGoogleComponent from '../../components/loaders/loaderV2/loaderGoogle.component';
+import MoneyHistoryService from 'services/myMoneyHistory/moneyHistory.service';
+import myMoneyHistoryAction from 'store/personalFinance/myMoneyHistory/myMoneyHistory.action';
 
 
 const LoginPage: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+
 
 	const [loading, setLoading] = useState(false);
 
@@ -37,6 +40,10 @@ const LoginPage: React.FC = () => {
 				dispatch(tokenAction.set(token))
 				//redirect to home
 				//hacer codigo para redireccionar a la pagina de inicio
+
+				const service = new MoneyHistoryService(user, token);
+				const response = await service.getAllByUser();
+				if (response) dispatch(myMoneyHistoryAction.addMany(response));
 
 				navigate(ROUTES.PRINCIPAL_PAGE_ROUTE);
 				return;

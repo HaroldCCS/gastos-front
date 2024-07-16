@@ -16,6 +16,9 @@ import styles from './index.module.scss';
 import { Fade } from 'react-awesome-reveal';
 import { useAppDispatch } from 'store';
 import tokenAction from 'store/auth/token/token.action';
+import myMoneyHistoryAction from 'store/personalFinance/myMoneyHistory/myMoneyHistory.action';
+import userAction from 'store/auth/user/user.action';
+import homeAction from 'store/home/home.action';
 
 function SidebarComponent() {
   const location = '/' + useLocation()?.pathname?.split('/')[1];
@@ -24,6 +27,9 @@ function SidebarComponent() {
 
   const logout = () => {
     dispatch(tokenAction.drop());
+    dispatch(myMoneyHistoryAction.delete_all());
+    dispatch(userAction.delete_all());
+    dispatch(homeAction.delete_all());
     navigate(ROUTES.LOGIN);
   }
 
