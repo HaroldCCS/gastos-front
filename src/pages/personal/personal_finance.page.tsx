@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import HeaderTurnBackComponent from "components/header_turn_back/header_turn_back.component";
 import { GiReceiveMoney } from "react-icons/gi";
 import { GiPayMoney } from "react-icons/gi";
@@ -14,12 +14,13 @@ import MyMoneyHistoryCreateComponent from 'modules/personal/myMoneyHistory/creat
 import Swal from 'sweetalert2';
 
 import styles from './index.module.scss';
-
+import MoneyHistoryService from 'services/myMoneyHistory/moneyHistory.service';
+import LoaderV1Component from '../../components/loaders/loaderV1/loaderV1.component';
 
 const PersonalFinancePage: React.FC = () => {
 	const storage = useAppSelector(state => state.personal_finances.my_money_history);
 
-	const [orderMyMonth, setOrderMyMonth] = React.useState<{date: string, data: Interface[]}[]>([]);
+	const [orderMyMonth, setOrderMyMonth] = React.useState<{ date: string, data: Interface[] }[]>([]);
 
 	useEffect(() => {
 
@@ -38,11 +39,11 @@ const PersonalFinancePage: React.FC = () => {
 		}
 
 		const keys = Array.from(data.keys());
-		const values: {date: string, data: Interface[]}[] = []
+		const values: { date: string, data: Interface[] }[] = []
 
 		for (const key of keys) {
 			const data_year = data.get(key) || [];
-			values.push({data: data_year, date: key});
+			values.push({ data: data_year, date: key });
 		}
 
 		setOrderMyMonth(values);
@@ -69,6 +70,7 @@ const PersonalFinancePage: React.FC = () => {
 }
 
 function FileRepair({ data }: { readonly data: Interface[] }) {
+	const moneyHistoryService = new MoneyHistoryService();
 	const dispatch = useAppDispatch();
 
 
@@ -83,7 +85,9 @@ function FileRepair({ data }: { readonly data: Interface[] }) {
 		})
 
 		if (!result?.isConfirmed) return;
-		dispatch(ACTIONS.delete({ _id }))
+
+		const response = await moneyHistoryService.delete(_id);
+		if (response) dispatch(ACTIONS.delete({ _id }));
 	}
 
 
@@ -104,28 +108,7 @@ function FileRepair({ data }: { readonly data: Interface[] }) {
 							</tr>
 						</thead>
 						<tbody>
-							{data?.map(r => (<tr key={r?._id}>
-								<td>
-									<OverlayTrigger
-										placement={'top'}
-										overlay={
-											<Tooltip id={`tooltip-right`}>
-												{r.income ? 'Ingreso' : 'Egreso'}
-											</Tooltip>
-										}
-									>
-										<div>{r.income ? <GiReceiveMoney color='green' /> : <GiPayMoney color='red' />}</div>
-									</OverlayTrigger>
-								</td>
-								<td>{r.name}</td>
-								<td>{MoneyFormatter(r.amount)}</td>
-								<td>
-									<center className='d-flex justify-content-center align-items-center gap-2'>
-										<Form.Check type={'checkbox'} onChange={(_e) => dispatch(ACTIONS.changeStatus({ _id: r._id, status: _e?.target?.checked ? 'done' : 'pending' }))} checked={r.status === 'done'} />
-										<FaDeleteLeft color='red' style={{ width: '25px', height: '25px', cursor: 'pointer' }} onClick={() => handleDelete(r._id)} />
-									</center>
-								</td>
-							</tr>))}
+							{data?.map(r => <MoneyComponent key={r?._id} r={r} handleDelete={handleDelete} />)}
 						</tbody>
 					</Table>
 				</Accordion.Body>
@@ -163,10 +146,48 @@ function FileRepair({ data }: { readonly data: Interface[] }) {
 					</Table>
 				</Accordion.Body>
 			</Accordion.Item>
-
 		</Accordion>
 
 	);
 }
 
+
+function MoneyComponent({ r, handleDelete }: { readonly r: Interface; readonly handleDelete: (_id: string) => Promise<void> }) {
+	const dispatch = useAppDispatch();
+	const moneyHistoryService = new MoneyHistoryService();
+	const [isLoading, setIsLoading] = useState(false);
+
+	const handleChangeStatus = async (_id: string, status: 'pending' | 'done') => {
+		setIsLoading(true);
+		const data = await moneyHistoryService.edit({ _id, status });
+		if (data?.status) dispatch(ACTIONS.changeStatus({ _id, status: data?.status }));
+		setIsLoading(false);
+	}
+
+	return (
+		<tr>
+			<td>
+				<OverlayTrigger
+					placement={'top'}
+					overlay={
+						<Tooltip id={`tooltip-right`}>
+							{r.income ? 'Ingreso' : 'Egreso'}
+						</Tooltip>
+					}
+				>
+					<div>{r.income ? <GiReceiveMoney color='green' /> : <GiPayMoney color='red' />}</div>
+				</OverlayTrigger>
+			</td>
+			<td>{r.name}</td>
+			<td>{MoneyFormatter(r.amount)}</td>
+			<td>
+				<center className='d-flex justify-content-center align-items-center gap-2'>
+					{isLoading && <LoaderV1Component />}
+					{!isLoading && <Form.Check type={'checkbox'} onChange={(_e) => handleChangeStatus(r._id, _e?.target?.checked ? 'done' : 'pending')} checked={r.status === 'done'} />}
+					<FaDeleteLeft color='red' style={{ width: '25px', height: '25px', cursor: 'pointer' }} onClick={() => handleDelete(r._id)} />
+				</center>
+			</td>
+		</tr>
+	)
+}
 export default PersonalFinancePage

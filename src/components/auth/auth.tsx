@@ -5,7 +5,6 @@ import { useAppSelector } from 'store';
 const PrivateRoute = () => {
 	const token = useAppSelector(state => state.token.token);
 
-  console.log('token', token);
   if (!token) {
     return <Navigate to="/login" />;
   }

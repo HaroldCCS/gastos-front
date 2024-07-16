@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import { FcGoogle } from 'react-icons/fc'; // Importa el logo de Google
 
 import styles from './index.module.scss';
+import LoaderGoogleComponent from '../../components/loaders/loaderV2/loaderGoogle.component';
 
 
 const LoginPage: React.FC = () => {
@@ -57,7 +58,7 @@ const LoginPage: React.FC = () => {
 
 	return (
 		<div className={styles.main}>
-			{loading && <GoogleLoading />}
+			{loading && <LoaderGoogleComponent />}
 			{!loading &&
 				<button className={styles.signin} onClick={handleLoginWithGoogle} disabled={loading}>
 					<FcGoogle className={styles.googleLogo} />
@@ -66,18 +67,6 @@ const LoginPage: React.FC = () => {
 			}
 		</div>
 	)
-}
-
-
-const GoogleLoading: React.FC = () => {
-	return (
-		<div className={styles.wrapper}>
-			<div className={styles.blue}></div>
-			<div className={styles.red}></div>
-			<div className={styles.yellow}></div>
-			<div className={styles.green}></div>
-		</div>
-	);
 }
 
 export default LoginPage

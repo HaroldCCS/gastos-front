@@ -4,6 +4,7 @@ export namespace Interface {
     export interface Model {
         _id: string,
         name: string
+        user?: string
         amount: number
         income: boolean // Determinar si es ingreso o egreso de dinero
         date: Date
