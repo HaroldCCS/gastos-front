@@ -14,9 +14,9 @@
 
 .link.active {
   svg {
-    color: red;
+    color: var(--primary_active);
   }
-  color: red;
+  color: var(--primary_active);
 }
 
 @media (max-width: 768px) { //TODO ARREGLAR VARIABLE 
@@ -25,5 +25,27 @@
       width: 100%;
       height: 60px;
       border-radius: 0.5rem 0.5rem 0 0;
+  }
+}
+
+
+.notification_counter_container {
+  position: relative;
+
+  .notification_counter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    color: white;
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .notification_counter_active {
+    background-color: rgba(255, 0, 0, 0.702);
   }
 }

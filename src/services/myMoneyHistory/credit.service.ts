@@ -4,10 +4,10 @@ import Swal from "sweetalert2";
 import CustomAxios from "utility/customAxios";
 
 
-export default class MoneyHistoryService {
+export default class CreditService {
   private token = '';
   private user_id = '';
-  private path = configService.host + "/money-history";
+  private path = configService.host + "/credit";
 
   constructor(user?: Interface, token?: string) {
     const data = JSON.parse(localStorage.getItem('persist:root')  || '{}')

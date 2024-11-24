@@ -10,9 +10,10 @@ import AnonymousLayout from 'layouts/anonymous/staff.layout'
 import StaffLayout from './layouts/staff/staff.layout'
 
 import Home from './modules/home/view/home.view.component'
-import { HomePage, NotFoundPage, PersonalFinancePage, LoginPage } from './pages'
+import { HomePage, NotFoundPage, PersonalFinancePage, LoginPage, CreditPage } from './pages'
 import PrivateRoute from './components/auth/auth';
 import PrivateLoginRoute from './components/auth/login';
+import ManageNotificationsPage from 'modules/personal/manageNotifications/manageNotifications.page'
 
 const RootComponent: React.FC = () => {
     return (
@@ -25,6 +26,8 @@ const RootComponent: React.FC = () => {
                     <Route path={ROUTES.HOMEPAGE_ROUTE} element={<StaffLayout><HomePage /></StaffLayout>} />
                     <Route path={ROUTES.HOMEPAGE_HOME_ROUTE} element={<StaffLayout><Home /></StaffLayout>} />
                     <Route path={ROUTES.PERSONALPAGE_ROUTE} element={<StaffLayout><PersonalFinancePage /></StaffLayout>} />
+                    <Route path={ROUTES.CREDITS_PAGE_ROUTE} element={<StaffLayout><CreditPage /></StaffLayout>} />
+                    <Route path={ROUTES.NOTIFICATIONS_PAGE_ROUTE} element={<StaffLayout><ManageNotificationsPage /></StaffLayout>} />
                 </Route>
                 <Route path="*" element={<StaffLayout><NotFoundPage /></StaffLayout>} />
 

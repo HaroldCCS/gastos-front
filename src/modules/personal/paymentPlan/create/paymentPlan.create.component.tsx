@@ -1,41 +1,41 @@
 import React, { useState } from "react";
+import { Fade } from 'react-awesome-reveal';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { TbHomePlus } from "react-icons/tb";
-import { IoMdHome } from "react-icons/io";
+import { TbHomePlus, TbZoomMoney } from "react-icons/tb";
 import { IoCalendarNumberSharp } from "react-icons/io5";
+import { AiOutlineDollar } from "react-icons/ai";
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 
 import { useAppDispatch } from "store";
 import ACTIONS from "store/personalFinance/myMoneyHistory/myMoneyHistory.action";
-import MoneyHistoryService from "services/myMoneyHistory/moneyHistory.service";
 import LoaderGoogleComponent from '../../../../components/loaders/loaderV2/loaderGoogle.component';
-import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
-import { AiOutlineDollar } from "react-icons/ai";
+import { Accordion, Card } from "react-bootstrap";
+import useCredits from "hooks/useCredits.hook";
 
-function MyMoneyHistoryCreateComponent() {
-  const moneyHistoryService = new MoneyHistoryService();
+
+function PaymentPlanCreateComponent() {
+  const { add } = useCredits({ not_initialized_getAll: true });
 
   const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
-  const [name, setName] = useState('');
+
+  const [title, setTitle] = useState('');
   const [amount, setAmount] = useState(0);
-  const [income, setIncome] = useState(false);
-  const [status, setStatus] = useState(false);
-  const [date, setDate] = useState<Date>(new Date());
+  const [interest_rate, setInterestRate] = useState(0);
+  const [loan_installments, setLoanInstallments] = useState(0);
+
 
   const [isLoading, setIsLoading] = useState(false);
 
 
   const handleCreate = async () => {
     setIsLoading(true);
-    const response = await moneyHistoryService.create({ name, status: status ? 'done' : 'pending', date: date, amount, income });
-    if (response?._id) {
-      dispatch(ACTIONS.add(response));
-      setShow(false);
-    }
+    add({ title, amount, interest_rate, loan_installments, status: 'pending' });
+    setShow(false);
     setIsLoading(false);
   }
   const handleClose = () => setShow(false);
@@ -49,6 +49,7 @@ function MyMoneyHistoryCreateComponent() {
     }
   };
 
+
   const formatCurrency = (value: number) => {
     return `$${value.toLocaleString('es-CO')}`;
   };
@@ -57,7 +58,7 @@ function MyMoneyHistoryCreateComponent() {
   return (
     <>
       <Button variant="outline-primary" onClick={handleShow}>
-        Agregar pago <TbHomePlus />
+        Agregar Credito <TbZoomMoney />
       </Button>
 
       <Modal
@@ -66,31 +67,29 @@ function MyMoneyHistoryCreateComponent() {
         backdrop="static"
         keyboard={false}
         centered
-        size="lg"
+        style={{ padding: '0rem !important' }}
       >
 
         <Modal.Header closeButton>
-          <Modal.Title>TO DO</Modal.Title>
+          <Modal.Title>Crear credito</Modal.Title>
         </Modal.Header>
 
+
         {isLoading ? <LoaderGoogleComponent /> : <>
-          <Modal.Body className="pt-4 pb-4">
+          <Modal.Body className="pb-4">
 
-
+            <Form.Label className="mb-2">Titulo del plan de pagos:</Form.Label>
             <InputGroup className="mb-3">
-              <Form.Check inline type="switch" id="basic-addon45" checked={income} label="Es un ingreso" name="group1" onChange={e => setIncome(e.target.checked)}></Form.Check>
-            </InputGroup>
-
-            <p className="mb-2">Nombre del ingreso/egreso:</p>
-            <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1"><MdOutlineDriveFileRenameOutline /></InputGroup.Text>
+              <InputGroup.Text id="basic-addon1"><MdOutlineDriveFileRenameOutline /> </InputGroup.Text>
               <Form.Control
                 placeholder="Nombre"
                 aria-label="name"
                 aria-describedby="nombre"
-                onChange={e => setName(e.target.value)}
+                onChange={e => setTitle(e.target.value)}
               />
             </InputGroup>
+
+            <Form.Label className="mb-2">Monto total del credito:</Form.Label>
             <InputGroup className="mb-3">
               <InputGroup.Text id="basic-addon1"><AiOutlineDollar /></InputGroup.Text>
               <Form.Control
@@ -102,34 +101,43 @@ function MyMoneyHistoryCreateComponent() {
               />
             </InputGroup>
 
+            <Form.Label className="mb-2">Porcentaje de intereses:</Form.Label>
             <InputGroup className="mb-3">
-              <InputGroup.Checkbox id="basic-addon1" checked={status} onChange={e => setStatus(e.target.checked)}></InputGroup.Checkbox>
+              <InputGroup.Text id="basic-addon1"><AiOutlineDollar /></InputGroup.Text>
               <Form.Control
-                disabled
-                placeholder={` ${income ? "¿ya fue recibido?" : "¿ya se pagó?"}`}
-                aria-label="Estado"
-                aria-describedby="Estado"
+                placeholder="Intereses"
+                aria-label="Intereses"
+                aria-describedby="Intereses"
+                onChange={_e => setInterestRate(Number(_e.target.value))}
+                value={interest_rate !== null ? interest_rate : ''}
               />
             </InputGroup>
+
+            <Form.Label className="mb-2">Cantidad de cuotas:</Form.Label>
             <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1"> <IoCalendarNumberSharp /> </InputGroup.Text>
+              <InputGroup.Text id="basic-addon1"><AiOutlineDollar /></InputGroup.Text>
               <Form.Control
-                type="date"
-                placeholder="Fecha"
-                aria-label="Fecha"
-                aria-describedby="Fecha"
-                defaultValue={(new Date()).toISOString().split('T')[0]}
-                onChange={e => { setDate(new Date(e.target.value)) }}
+                placeholder="Intereses"
+                aria-label="Intereses"
+                aria-describedby="Intereses"
+                onChange={_e => setLoanInstallments(Number(_e.target.value))}
+                value={loan_installments !== null ? loan_installments : ''}
               />
             </InputGroup>
+
+            <hr />
+
+            <Form.Label className="mb-2">Valor total con intereses: {formatCurrency(amount * (interest_rate + 100) / 100)}</Form.Label>
+
+
           </Modal.Body>
 
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               cancelar
             </Button>
-            <Button variant="primary" onClick={handleCreate}>
-              Crear {income ? 'ingreso' : 'egreso'}
+            <Button variant="primary" disabled={!amount || !loan_installments} onClick={handleCreate}>
+              Crear
             </Button>
           </Modal.Footer>
         </>}
@@ -138,4 +146,4 @@ function MyMoneyHistoryCreateComponent() {
   );
 }
 
-export default MyMoneyHistoryCreateComponent;
+export default PaymentPlanCreateComponent;

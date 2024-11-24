@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import styles from './index.module.scss';
 import MoneyHistoryService from 'services/myMoneyHistory/moneyHistory.service';
 import LoaderV1Component from '../../components/loaders/loaderV1/loaderV1.component';
+import PaymentPlanCreateComponent from 'modules/personal/paymentPlan/create/paymentPlan.create.component';
 
 const PersonalFinancePage: React.FC = () => {
 	const storage = useAppSelector(state => state.personal_finances.my_money_history);
@@ -55,7 +56,9 @@ const PersonalFinancePage: React.FC = () => {
 				<HeaderTurnBackComponent title="Sección finanzas personales" />
 			</Fade>
 
-			<MyMoneyHistoryCreateComponent />
+			<div className='d-flex justify-content-end gap-5 mt-5 flex-wrap'>
+				<MyMoneyHistoryCreateComponent />
+			</div>
 
 
 			<div className='d-flex justify-content-center gap-5 mt-5 flex-wrap'>
@@ -191,7 +194,7 @@ function MoneyComponent({ r, handleDelete }: { readonly r: Interface; readonly h
 					{isLoading && <LoaderV1Component />}
 					{!isLoading && <>
 						<Form.Check type={'checkbox'} onChange={(_e) => handleChangeStatus(r._id, _e?.target?.checked ? 'done' : 'pending')} checked={r.status === 'done'} />
-						<FaDeleteLeft color='red' style={{ width: '25px', height: '25px', cursor: 'pointer' }} onClick={() => handleDeleteLocal(r._id)} />
+						<FaDeleteLeft color="var(--primary_active)" style={{ width: '25px', height: '25px', cursor: 'pointer' }} onClick={() => handleDeleteLocal(r._id)} />
 					</>}
 				</center>
 			</td>

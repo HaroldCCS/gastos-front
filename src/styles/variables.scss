@@ -1,14 +1,16 @@
 html {
   // --primary: #007bff;
-  --primary: #604b8f;
+  --primary: #21A8EC;
   --button-primary-hover: #1280B0;
+
+  --primary_active: #2139ec;
 
   --gray-light: #ced4da;
   --gray-medium: #495057;
   --gray-dark: #343a40;
   --background: #ffffff;
   --background2: #eeeeee;
-  --text: #604b8f;
+  --text: #21A8EC;
   --text2: #8F989D;
 
   --font-title: 'Barlow', sans-serif;
@@ -27,6 +29,10 @@ html {
   --screen-md-min: 768px;
   --screen-lg-min: 992px;
   --screen-xl-min: 1200px;
+
+  .accordion {
+    --bs-accordion-active-bg: #21a8ec7d;
+  }
 
 
   .btn-primary {

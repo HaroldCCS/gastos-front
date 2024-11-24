@@ -7,7 +7,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 //ICONS
-import { IoMdHome } from "react-icons/io";
+import { IoIosNotificationsOutline, IoMdHome } from "react-icons/io";
 import { GiPayMoney } from "react-icons/gi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { TbZoomMoney, TbLogout } from "react-icons/tb";
@@ -19,6 +19,9 @@ import tokenAction from 'store/auth/token/token.action';
 import myMoneyHistoryAction from 'store/personalFinance/myMoneyHistory/myMoneyHistory.action';
 import userAction from 'store/auth/user/user.action';
 import homeAction from 'store/home/home.action';
+import NotificationCounterComponent from './notificationCounterComponent';
+import notificationAction from 'store/app/notification/notification.action';
+import { BsCreditCard } from 'react-icons/bs';
 
 function SidebarComponent() {
   const location = '/' + useLocation()?.pathname?.split('/')[1];
@@ -30,6 +33,7 @@ function SidebarComponent() {
     dispatch(myMoneyHistoryAction.delete_all());
     dispatch(userAction.delete_all());
     dispatch(homeAction.delete_all());
+    dispatch(notificationAction.delete_all());
     navigate(ROUTES.LOGIN);
   }
 
@@ -37,9 +41,8 @@ function SidebarComponent() {
     <div className={styles.sidebar}>
       <Fade>
         <RedirectComponent place_redirect="Mis finanzas" page_route={ROUTES.PERSONALPAGE_ROUTE} currentPath={location}> <TbZoomMoney /> </RedirectComponent>
-        {/* <RedirectComponent place_redirect="Hogares" page_route={ROUTES.HOMEPAGE_ROUTE} currentPath={location}> <IoMdHome /></RedirectComponent>
-        <RedirectComponent place_redirect="Prestamos" page_route={ROUTES.PERSONALPAGE_ROUTE} currentPath={location}> <GiReceiveMoney /> </RedirectComponent>
-        <RedirectComponent place_redirect="Deudas" page_route={ROUTES.PERSONALPAGE_ROUTE} currentPath={location}> <GiPayMoney /> </RedirectComponent> */}
+        <RedirectComponent place_redirect="Mis créditos" page_route={ROUTES.CREDITS_PAGE_ROUTE} currentPath={location}> <BsCreditCard /> </RedirectComponent>
+        <RedirectComponent place_redirect="Notificaciones" page_route={ROUTES.NOTIFICATIONS_PAGE_ROUTE} currentPath={location}> <NotificationCounterComponent /></RedirectComponent>
         <RedirectComponent place_redirect="Cerrar sesión" callback={logout} currentPath={location}> <TbLogout /> </RedirectComponent>
       </Fade>
     </div>
